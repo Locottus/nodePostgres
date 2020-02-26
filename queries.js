@@ -13,7 +13,7 @@ const getMessages = (request, response) => {
     if (error) {
       throw error
     }
-    console.log('se han enviado los mensajes');
+    console.log('se han enviado todos los mensajes');
     response.status(200).json(results.rows)
   })
 }
@@ -23,7 +23,7 @@ const createMessage = (request, response) => {
     
   const { nombre,telefono, email,msg } = request.body
     console.log('esto es un post ' + nombre + ' ' + telefono + ' ' + email + ' '+ msg);
-    //let cadena = 'INSERT INTO mensajes (nombre,telefono,email,mensaje) VALUES (\'' + nombre + '\', \'' + telefono + '\', \'' + email + '\', \'' + msg + '\')'  ;
+    let cadena = 'INSERT INTO mensajes (nombre,telefono,email,mensaje) VALUES (\'' + nombre + '\', \'' + telefono + '\', \'' + email + '\', \'' + msg + '\')'  ;
     console.log(cadena);
   pool.query(cadena, (error, results) => {
     if (error) {
