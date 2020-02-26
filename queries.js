@@ -2,8 +2,8 @@ const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
-  database: 'herlichDB',
-  password: 'Guatemala1',
+  database: 'database',
+  password: 'password',
   port: 5432,
 })
 const getUsers = (request, response) => {
@@ -72,5 +72,5 @@ module.exports = {
   deleteUser,
 }
 
-
+//website source (y)
 //https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8/

@@ -24,3 +24,10 @@ app.delete('/users/:id', db.deleteUser)
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 })
+
+
+// CREATE TABLE users (
+//     ID SERIAL PRIMARY KEY,
+//     name VARCHAR(30),
+//     email VARCHAR(30)
+//   );
