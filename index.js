@@ -1,8 +1,8 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const app = express()
-const dbIOT = require('./queriesIOT')
-const port = 3000
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const dbIOT = require('./queriesIOT');
+const port = 3000;
 const APIROUTE = '/incyt/api';
 
 app.use(bodyParser.json())
