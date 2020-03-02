@@ -1,15 +1,15 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'postgres',
-  host: '172.16.250.12',
+  host: 'localhost',
   database: 'herlichDB',
-  password: 'postgres2020!Incyt',
+  password: 'Guatemala1',
   port: 5432,
 })
 
-const getUsers = (request, response) => {
-  console.log('entrando a getUsers');
-  pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
+
+const getMessages = (request, response) => {
+  pool.query('SELECT * FROM mensajes ORDER BY id ASC', (error, results) => {
     if (error) {
       throw error
     }
@@ -19,63 +19,40 @@ const getUsers = (request, response) => {
 }
 
 
-const createUser = (request, response) => {
-  console.log('entrando a postUsers');
-  const { name, email } = request.body
-  console.log(name + ' ' + email);
-
-  pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, result) => {
+const createMessage = (request, response) => {
+    //pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, results) => {
+  const { nombre,telefono, email,msg } = request.body
+    console.log('esto es un post ' + nombre + ' ' + telefono + ' ' + email + ' '+ msg);
+    let cadena = 'INSERT INTO mensajes (nombre,telefono,email,mensaje) VALUES (\'' + nombre + '\', \'' + telefono + '\', \'' + email + '\', \'' + msg + '\')'  ;
+    console.log(cadena);
+  pool.query(cadena, (error, results) => {
     if (error) {
       throw error
     }
-    console.log('se han enviado todos los mensajes');
-    response.status(201).send(`User added with ID: ${result.insertId}`)
+    //response.status(201).send(`User added with ID: ${results.body}`);
+    response.status(201).send(`{'msg':'OK'}`);
   })
 }
 
-/*
-const getUserById = (request, response) => {
-  const id = parseInt(request.params.id)
-
-  pool.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
-    if (error) {
-      throw error
-    }
-    response.status(200).json(results.rows)
-  })
-}
-
-const updateUser = (request, response) => {
-  const id = parseInt(request.params.id)
-  const { name, email } = request.body
-
-  pool.query(
-    'UPDATE users SET name = $1, email = $2 WHERE id = $3',
-    [name, email, id],
-    (error, results) => {
-      if (error) {
-        throw error
-      }
-      response.status(200).send(`User modified with ID: ${id}`)
-    }
-  )
-}
-
-const deleteUser = (request, response) => {
-  const id = parseInt(request.params.id)
-
-  pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
-    if (error) {
-      throw error
-    }
-    response.status(200).send(`User deleted with ID: ${id}`)
-  })
-}
-*/
 
 module.exports = {
-  getUsers,
-  createUser,
-
+  getMessages,
+  createMessage
 }
 
+
+
+// create table mensajes(
+//     id serial PRIMARY KEY,
+//        nombre text  not null,
+//        telefono text  not null,
+//        email text not null,
+//        mensaje text not null,
+//        fechaCreacion timestamp default CURRENT_TIMESTAMP
+//     );
+    
+
+
+
+//website source (y)
+//https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8/
