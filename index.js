@@ -1,9 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const app = express();
-const dbIOT = require('./queriesIOT');
-const port = 3000;
-const APIROUTE = '/incyt/api';
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
+const db = require('./queriesIOT')
+const port = 3000
 
 app.use(bodyParser.json())
 app.use(
@@ -12,40 +11,21 @@ app.use(
   })
 )
 
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
-
-//metodo root
-app.get(APIROUTE, (request, response) => {
-  console.log('accessing route api');
-  response.json({ info: 'Node.js, Express, Nginx and Postgres API' })
+app.get('/incyt/api', (request, response) => {
+  response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
-
-//METODOS PARA IOT VULCANOLOGIA
-app.get(APIROUTE + '/iotGet', () => {
-  console.log('entrando al get de IOT');
-  dbIOT.getUsers;
-});
-
-app.post(APIROUTE + '/iotPost', () => {
-  console.log('entrando al post de IOT');
-  dbIOT.createUser;
-});
-
+app.get('/incyt/api/mensajes', db.getMessages)
+app.post('/incyt/api/mensaje', db.createMessage)
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
 })
 
 
-// CREATE TABLE users (
-//     ID SERIAL PRIMARY KEY,
-//     name VARCHAR(30),
-//     email VARCHAR(30),
-//     unique(email)
-//   );
