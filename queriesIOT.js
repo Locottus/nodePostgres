@@ -2,19 +2,38 @@ const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
-  database: 'database',
-  password: 'password',
+  database: 'herlichDB',
+  password: '',
   port: 5432,
 })
+
 const getUsers = (request, response) => {
+  console.log('entrando a getUsers');
   pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
     if (error) {
       throw error
     }
+    console.log('se han enviado todos los mensajes');
     response.status(200).json(results.rows)
   })
 }
 
+
+const createUser = (request, response) => {
+  console.log('entrando a postUsers');
+  const { name, email } = request.body
+  console.log(name + ' ' + email);
+
+  pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, result) => {
+    if (error) {
+      throw error
+    }
+    console.log('se han enviado todos los mensajes');
+    response.status(201).send(`User added with ID: ${result.insertId}`)
+  })
+}
+
+/*
 const getUserById = (request, response) => {
   const id = parseInt(request.params.id)
 
@@ -23,17 +42,6 @@ const getUserById = (request, response) => {
       throw error
     }
     response.status(200).json(results.rows)
-  })
-}
-
-const createUser = (request, response) => {
-  const { name, email } = request.body
-
-  pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, results) => {
-    if (error) {
-      throw error
-    }
-    response.status(201).send(`User added with ID: ${result.insertId}`)
   })
 }
 
@@ -63,14 +71,11 @@ const deleteUser = (request, response) => {
     response.status(200).send(`User deleted with ID: ${id}`)
   })
 }
+*/
 
 module.exports = {
   getUsers,
-  getUserById,
   createUser,
-  updateUser,
-  deleteUser,
+
 }
 
-//website source (y)
-//https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8/
