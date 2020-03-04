@@ -3,7 +3,7 @@ const pool = new Pool({
   user: 'postgres',
   host: '172.17.250.12',
   database: 'iotgis',
-  password: '',
+  password: 'postgres2020!Incyt',
   port: 5432,
 })
 
