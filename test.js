@@ -1,8 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-const db = require('./queries')
-const port = 3000
+const port = 4000
 
 app.use(bodyParser.json())
 app.use(
@@ -11,18 +10,18 @@ app.use(
   })
 )
 
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
-app.get('/incyt/api', (request, response) => {
-  response.json({ info: 'Node.js, Express, nginx  and Postgres API ' })
+
+app.get('/incyt/api/test', (request, response) => {
+  response.json({ info: 'Node.js, Express, Postgresql and nginx TEST API PORT 4K' })
 })
 
-app.get('/incyt/api/mensajes', db.getMessages)
-app.post('/incyt/api/mensaje', db.createMessage)
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)

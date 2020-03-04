@@ -1,8 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-const db = require('./queries')
-const port = 3000
+const db = require('./queriesIOT')
+const port = 3001
 
 app.use(bodyParser.json())
 app.use(
@@ -17,12 +17,12 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/incyt/api', (request, response) => {
-  response.json({ info: 'Node.js, Express, nginx  and Postgres API ' })
+app.get('/incyt/api/iot', (request, response) => {
+  response.json({ info: 'Node.js, Express,nginx and Postgres API IOT' })
 })
 
-app.get('/incyt/api/mensajes', db.getMessages)
-app.post('/incyt/api/mensaje', db.createMessage)
+app.get('/incyt/api/iot/mensajes', db.getMessages)
+app.post('/incyt/api/iot/mensaje', db.createMessage)
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
