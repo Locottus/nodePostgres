@@ -22,7 +22,9 @@ app.get('/incyt/api/iot', (request, response) => {
 })
 
 app.get('/incyt/api/iot/mensajes', db.getMessages)
-app.post('/incyt/api/iot/mensaje', db.createMessage)
+app.post('/incyt/api/iot/ISE1_INFR', db.ISE1_INFR)
+app.post('/incyt/api/iot/ISE2_INFR', db.ISE2_INFR)
+app.post('/incyt/api/iot/E1MS1', db.E1MS1)
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)

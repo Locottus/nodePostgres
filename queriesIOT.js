@@ -1,7 +1,7 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'postgres',
-  host: '172.17.250.12',
+  host: '172.16.250.12',
   database: 'iotgis',
   password: 'postgres2020!Incyt',
   port: 5432,
@@ -19,13 +19,11 @@ const getMessages = (request, response) => {
 }
 
 
-const createMessage = (request, response) => {
-    //pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, results) => {
-  const { nombre,telefono, email,msg } = request.body
-    console.log('esto es un post ' + nombre + ' ' + telefono + ' ' + email + ' '+ msg);
-    let cadena = 'INSERT INTO mensajes (nombre,telefono,email,mensaje) VALUES (\'' + nombre + '\', \'' + telefono + '\', \'' + email + '\', \'' + msg + '\')'  ;
-    console.log(cadena);
-  pool.query(cadena, (error, results) => {
+const ISE1_INFR = (request, response) => {
+  const { infrasonido_1,infrasonido_2, infrasonido_3,infrasonido_4,infrasonido_5,posicion,fecha_recepcion } = request.body
+  //console.log('esto es un post ' + infrasonido_1 + ' ' + infrasonido_2 + ' ' + infrasonido_3 + ' '+ infrasonido_4 + ' '+ infrasonido_5 + ' '+ posicion + ' '+ fecha_recepcion);
+  pool.query('INSERT INTO ISE1_INFR (infrasonido_1,infrasonido_2, infrasonido_3,infrasonido_4,infrasonido_5,posicion,fecha_recepcion) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+   [infrasonido_1,infrasonido_2, infrasonido_3,infrasonido_4,infrasonido_5,posicion,fecha_recepcion], (error, results) => {
     if (error) {
       throw error
     }
@@ -34,10 +32,39 @@ const createMessage = (request, response) => {
   })
 }
 
+const ISE2_INFR = (request, response) => {
+const { infrasonido_1,infrasonido_2, infrasonido_3,infrasonido_4,infrasonido_5,posicion,fecha_recepcion } = request.body
+//console.log('esto es un post ' + infrasonido_1 + ' ' + infrasonido_2 + ' ' + infrasonido_3 + ' '+ infrasonido_4 + ' '+ infrasonido_5 + ' '+ posicion + ' '+ fecha_recepcion);
+pool.query('INSERT INTO ISE2_INFR (infrasonido_1,infrasonido_2, infrasonido_3,infrasonido_4,infrasonido_5,posicion,fecha_recepcion) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+ [infrasonido_1,infrasonido_2, infrasonido_3,infrasonido_4,infrasonido_5,posicion,fecha_recepcion], (error, results) => {
+  if (error) {
+    throw error
+  }
+  response.status(201).send(`{'msg':'OK'}`);
+})
+}
+
+
+
+const E1MS1 = (request, response) => {
+  const { infrasonido_1,infrasonido_2,infrasonido_3,infrasonido_4,audible_1, MPU_gxe,MPU_gye,MPU_gze,MPU_axe,MPU_aye,MPU_aze,MPU_rotx,MPU_roty,MPU_rotz,posicion,fecha_recepcion  } = request.body
+  //console.log('esto es un post ' + infrasonido_1+ ' ' +infrasonido_2+ ' ' +infrasonido_3+ ' ' +infrasonido_4+ ' ' +audible_1+ ' ' + MPU_gxe+ ' ' +MPU_gye+ ' ' +MPU_gze+ ' ' +MPU_axe+ ' ' +MPU_aye+ ' ' +MPU_aze+ ' ' +MPU_rotx+ ' ' +MPU_roty+ ' ' +MPU_rotz+ ' ' +posicion+ ' ' +fecha_recepcion );
+  pool.query('INSERT INTO E1MS1 (infrasonido_1,infrasonido_2,infrasonido_3,infrasonido_4,audible_1, MPU_gxe,MPU_gye,MPU_gze,MPU_axe,MPU_aye,MPU_aze,MPU_rotx,MPU_roty,MPU_rotz,posicion,fecha_recepcion ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)',
+   [infrasonido_1,infrasonido_2,infrasonido_3,infrasonido_4,audible_1, MPU_gxe,MPU_gye,MPU_gze,MPU_axe,MPU_aye,MPU_aze,MPU_rotx,MPU_roty,MPU_rotz,posicion,fecha_recepcion ], (error, results) => {
+    if (error) {
+      throw error
+    }
+    //response.status(201).send(`User added with ID: ${results.body}`);
+    response.status(201).send(`{'msg':'OK'}`);
+  })
+  }
+  
 
 module.exports = {
   getMessages,
-  createMessage
+  ISE1_INFR,
+  ISE2_INFR,
+  E1MS1
 }
 
 
