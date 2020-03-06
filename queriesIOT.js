@@ -1,19 +1,43 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'postgres',
-  host: '172.16.250.12',
+  host: '172.17.250.12',
   database: 'iotgis',
   password: 'postgres2020!Incyt',
   port: 5432,
 })
 
 
-const getMessages = (request, response) => {
-  pool.query('SELECT * FROM mensajes ORDER BY id ASC', (error, results) => {
+const getISE1_INFR = (request, response) => {
+  const minutos = request.query.minutos;
+  //select * from e1ms1 where fecha_recepcion > (current_timestamp - (100000 * interval '1 minute'))
+  pool.query('SELECT * FROM ISE1_INFR where fecha_recepcion > (current_timestamp - ('+ minutos +' * interval \'1 minute\')) ', (error, results) => {
     if (error) {
       throw error
     }
-    console.log('se han enviado todos los mensajes');
+    //console.log('se han enviado todos los mensajes');
+    response.status(200).json(results.rows)
+  })
+}
+
+const getISE2_INFR = (request, response) => {
+  const minutos = request.query.minutos;
+  pool.query('SELECT * FROM ISE2_INFR  where fecha_recepcion > (current_timestamp - ('+ minutos +' * interval \'1 minute\')) ', (error, results) => {
+    if (error) {
+      throw error
+    }
+    //console.log('se han enviado todos los mensajes');
+    response.status(200).json(results.rows)
+  })
+}
+
+const getE1MS1 = (request, response) => {
+  const minutos = request.query.minutos;
+  pool.query('SELECT * FROM E1MS1  where fecha_recepcion > (current_timestamp - ('+ minutos +' * interval \'1 minute\')) ', (error, results) => {
+    if (error) {
+      throw error
+    }
+    //console.log('se han enviado todos los mensajes');
     response.status(200).json(results.rows)
   })
 }
@@ -61,7 +85,9 @@ const E1MS1 = (request, response) => {
   
 
 module.exports = {
-  getMessages,
+  getISE1_INFR,
+  getISE2_INFR,
+  getE1MS1,
   ISE1_INFR,
   ISE2_INFR,
   E1MS1
