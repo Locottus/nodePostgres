@@ -10,7 +10,7 @@ const pool = new Pool({
 
 
 
-const grabaCatalogo = (request) => {
+ const grabaCatalogo = (request) => {
   //pool.query('insert into fileCatalog (fieldname,originalname,encoding,mimetype,destination,filename,path,size)  VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [name, email], (error, results) => {
 const { fieldname,originalname,encoding,mimetype,destination,filename,path,size } = request.file;
   console.log('esto es un post ' + fieldname + ' ' + originalname + ' ' + encoding + ' '+ mimetype + ' '+ destination + ' '+ filename + ' '+ path + ' '+ size );
