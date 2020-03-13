@@ -71,13 +71,13 @@ const ISE2_INFR = (request, response) => {
 
 
 const E1MS1 = (request, response) => {
+  //console.log(request.body);
   var err = false;
   for (var i = 0; i < request.body.length; i++) {
-    console.log('posicion del arreglo numero: ' + i);
-    var { infrasonido_1, infrasonido_2, infrasonido_3, infrasonido_4, audible_1, MPU_gxe, MPU_gye, MPU_gze, MPU_axe, MPU_aye, MPU_aze, MPU_rotx, MPU_roty, MPU_rotz, posicion, fecha_recepcion } = request.body[i];
-    console.log(infrasonido_1, infrasonido_2, infrasonido_3, infrasonido_4, audible_1, MPU_gxe, MPU_gye, MPU_gze, MPU_axe, MPU_aye, MPU_aze, MPU_rotx, MPU_roty, MPU_rotz, posicion, fecha_recepcion);
-    pool.query('INSERT INTO E1MS1 (infrasonido_1,infrasonido_2,infrasonido_3,infrasonido_4,audible_1, MPU_gxe,MPU_gye,MPU_gze,MPU_axe,MPU_aye,MPU_aze,MPU_rotx,MPU_roty,MPU_rotz,posicion,fecha_recepcion ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)',
-      [infrasonido_1, infrasonido_2, infrasonido_3, infrasonido_4, audible_1, MPU_gxe, MPU_gye, MPU_gze, MPU_axe, MPU_aye, MPU_aze, MPU_rotx, MPU_roty, MPU_rotz, posicion, fecha_recepcion], (error, results) => {
+    //console.log('posicion del arreglo numero: ' + i);
+    var { infrasonido_1, infrasonido_2, infrasonido_3, infrasonido_4, audible_1, mpu_gxe, mpu_gye, mpu_gze, mpu_axe, mpu_aye, mpu_aze, mpu_rotx, mpu_roty, mpu_rotz, posicion, fecha_recepcion } = request.body[i];
+    pool.query('INSERT INTO E1MS1 (infrasonido_1, infrasonido_2, infrasonido_3, infrasonido_4, audible_1, mpu_gxe, mpu_gye, mpu_gze, mpu_axe, mpu_aye, mpu_aze, mpu_rotx, mpu_roty, mpu_rotz, posicion, fecha_recepcion ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)',
+      [infrasonido_1, infrasonido_2, infrasonido_3, infrasonido_4, audible_1, mpu_gxe, mpu_gye, mpu_gze, mpu_axe, mpu_aye, mpu_aze, mpu_rotx, mpu_roty, mpu_rotz, posicion, fecha_recepcion], (error, results) => {
         if (error) {
           //throw error
           err = true;
