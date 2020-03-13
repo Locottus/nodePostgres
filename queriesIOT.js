@@ -44,28 +44,39 @@ const getE1MS1 = (request, response) => {
 
 
 const ISE1_INFR = (request, response) => {
-  const { infrasonido_1, infrasonido_2, infrasonido_3, infrasonido_4, infrasonido_5, posicion, fecha_recepcion } = request.body
+  //console.log(request.body);
+  var err = false;
+  for (var i = 0; i < request.body.length; i++) {
+  var { infrasonido_1, infrasonido_2, infrasonido_3, infrasonido_4, infrasonido_5, posicion, fecha_recepcion } = request.body[i];
   //console.log('esto es un post ' + infrasonido_1 + ' ' + infrasonido_2 + ' ' + infrasonido_3 + ' '+ infrasonido_4 + ' '+ infrasonido_5 + ' '+ posicion + ' '+ fecha_recepcion);
   pool.query('INSERT INTO ISE1_INFR (infrasonido_1,infrasonido_2, infrasonido_3,infrasonido_4,infrasonido_5,posicion,fecha_recepcion) VALUES ($1, $2, $3, $4, $5, $6, $7)',
     [infrasonido_1, infrasonido_2, infrasonido_3, infrasonido_4, infrasonido_5, posicion, fecha_recepcion], (error, results) => {
       if (error) {
-        throw error
+        //throw error
+        err = true;
       }
-      //response.status(201).send(`User added with ID: ${results.body}`);
-      response.status(201).send(`{'msg':'OK'}`);
-    })
+  
+    });
+  }
+    response.status(201).send({ 'msg': 'OK', 'error': err });
 }
 
 const ISE2_INFR = (request, response) => {
-  const { infrasonido_1, infrasonido_2, infrasonido_3, infrasonido_4, infrasonido_5, posicion, fecha_recepcion } = request.body
+  //console.log(request.body);
+  var err = false;
+  for (var i = 0; i < request.body.length; i++) {
+  var { infrasonido_1, infrasonido_2, infrasonido_3, infrasonido_4, infrasonido_5, posicion, fecha_recepcion } = request.body[i];
   //console.log('esto es un post ' + infrasonido_1 + ' ' + infrasonido_2 + ' ' + infrasonido_3 + ' '+ infrasonido_4 + ' '+ infrasonido_5 + ' '+ posicion + ' '+ fecha_recepcion);
   pool.query('INSERT INTO ISE2_INFR (infrasonido_1,infrasonido_2, infrasonido_3,infrasonido_4,infrasonido_5,posicion,fecha_recepcion) VALUES ($1, $2, $3, $4, $5, $6, $7)',
     [infrasonido_1, infrasonido_2, infrasonido_3, infrasonido_4, infrasonido_5, posicion, fecha_recepcion], (error, results) => {
       if (error) {
-        throw error
+        //throw error
+        err = true;
       }
-      response.status(201).send(`{'msg':'OK'}`);
-    })
+  
+    });
+  }
+    response.status(201).send({ 'msg': 'OK', 'error': err });
 }
 
 
