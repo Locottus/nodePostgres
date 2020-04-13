@@ -21,7 +21,7 @@ app.get('/incyt/api/sosagua', (request, response) => {
   response.json({ info: 'Node.js, Express, nginx  and Postgres API #SOSAGUA ' })
 })
 
-app.get('/incyt/api/sos/getalerts', db.getAlerts)
+app.get('/incyt/api/sos/getalertsmaster', db.getAlertsMaster)
 app.get('/incyt/api/sos/getmunicipios', db.getMunicipios)
 app.get('/incyt/api/sos/getsos', db.getSos)
 

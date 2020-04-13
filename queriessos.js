@@ -15,12 +15,15 @@ const pool = new Pool({
   port: 5432,
 })
 
-const getAlerts = (request, response) => {
-  pool.query('select f.id,f.sos, m.point_x, m.point_y from fase1 f, municipios m where f.municipio = m.id ', (error, results) => {
+
+
+const getAlertsMaster = (request, response) => {
+  //select departamen_1, municipi_1, point_x, point_y ,n.descripcion from cubo1 c, municipios m, necesidad n where m.id = c.municipio and n.id = c.necesidad
+  pool.query('select distinct m.id, departamen_1, municipi_1, point_x, point_y from cubo1 c, municipios m where m.id = c.municipio ', (error, results) => {
     if (error) {
       throw error
     }
-    console.log('#SOSAGUA GET Method Fase1');
+    console.log('#SOSAGUA GET Method cubo1');
     response.status(200).json(results.rows)
   })
 }
@@ -38,7 +41,7 @@ const getMunicipios = (request, response) => {
 
 
 const getSos = (request, response) => {
-  pool.query('select * from  sos  ', (error, results) => {
+  pool.query('select * from  necesidad  ', (error, results) => {
     if (error) {
       throw error
     }
@@ -49,9 +52,9 @@ const getSos = (request, response) => {
 
 const createAlerts = (request, response) => {
     //pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, results) => {
-  const { twitjson,twitstring,origen,municipio,sos } = request.body
-    console.log('esto es un post ' + twitjson + ' ' + twitstring + ' ' + origen + ' ' + municipio + ' '+ sos);
-    let cadena = 'INSERT INTO fase1 (twitjson,twitstring,origen) VALUES (\'' + twitjson + '\', \'' + twitstring + '\', \'' + origen + '\', \'' + municipio + '\', \'' + sos + '\')'  ;
+  const { twitjson,twitstring,origen,municipio, necesidad} = request.body
+    console.log('esto es un post ' + twitjson + ' ' + twitstring + ' ' + origen + ' ' + municipio + ' '+ necesidad);
+    let cadena = 'INSERT INTO fase1 (twitjson,twitstring,origen) VALUES (\'' + twitjson + '\', \'' + twitstring + '\', \'' + origen + '\', \'' + municipio + '\', \'' + necesidad + '\')'  ;
     console.log(cadena);
   pool.query(cadena, (error, results) => {
     if (error) {
@@ -64,7 +67,7 @@ const createAlerts = (request, response) => {
 
 
 module.exports = {
-  getAlerts,
+  getAlertsMaster,
   getMunicipios,
   getSos,
   createAlerts
