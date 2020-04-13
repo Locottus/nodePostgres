@@ -40,7 +40,7 @@ const getMunicipios = (request, response) => {
 }
 
 
-const getSos = (request, response) => {
+const getNecesidad = (request, response) => {
   pool.query('select * from  necesidad  ', (error, results) => {
     if (error) {
       throw error
@@ -65,11 +65,25 @@ const createAlerts = (request, response) => {
   })
 }
 
+const getAlertsDetail = (request, response) => {
+  const id = request.query.id;
+  pool.query('select n.*, c.mes, c.ano, c.contador from cubo1 c, necesidad n where c.necesidad = n.id and c.municipio = ' + id + ' order by mes, ano,necesidad,c.contador ', (error, results) => {
+    if (error) {
+      throw error
+    }
+    //console.log('se han enviado todos los mensajes');
+    response.status(200).json(results.rows)
+  })
+}
+
+
+
 
 module.exports = {
   getAlertsMaster,
   getMunicipios,
-  getSos,
+  getNecesidad,
+  getAlertsDetail,
   createAlerts
 }
 
