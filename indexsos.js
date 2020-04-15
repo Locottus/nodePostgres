@@ -23,9 +23,9 @@ app.get('/incyt/api/sosagua', (request, response) => {
 
 app.get('/incyt/api/sos/getalertsmaster', db.getAlertsMaster)
 app.get('/incyt/api/sos/getalertsdetail', db.getAlertsDetail)
+app.get('/incyt/api/sos/getdepartamentos', db.getDepartamentos)
 app.get('/incyt/api/sos/getmunicipios', db.getMunicipios)
-app.get('/incyt/api/sos/getsos', db.getNecesidad)
-
+app.get('/incyt/api/sos/getnecesidad', db.getNecesidad)
 app.post('/incyt/api/sosagua/createalerts', db.createAlerts)
 
 app.listen(port, () => {
