@@ -28,6 +28,15 @@ const getAlertsMaster = (request, response) => {
   })
 }
 
+const getDepartamentos = (request, response) => {
+  pool.query('select distinct departamen_1 from municipios order by departamen_1  ', (error, results) => {
+    if (error) {
+      throw error
+    }
+    console.log('#SOSAGUA GET Method departamentos');
+    response.status(200).json(results.rows)
+  })
+}
 
 const getMunicipios = (request, response) => {
   pool.query('select * from  municipios  ', (error, results) => {
@@ -81,6 +90,7 @@ const getAlertsDetail = (request, response) => {
 
 module.exports = {
   getAlertsMaster,
+  getDepartamentos,
   getMunicipios,
   getNecesidad,
   getAlertsDetail,
