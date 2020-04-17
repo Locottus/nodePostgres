@@ -1,8 +1,8 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const app = express()
-const db = require('./queriessos')
-const port = 3000
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const db = require('./queriesagua');
+const port = 3000;
 
 app.use(bodyParser.json())
 app.use(
