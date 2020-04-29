@@ -75,8 +75,8 @@ const createAlerts = (request, response) => {
       //cursor.execute(" insert into fase1 (twitjson,twitstring,origen) values ('" + json.dumps(tjson) + "','" + str(tstr).replace("'",'"') + "','Twitter')")
   //const { twitjson,twitstring,origen,municipio, necesidad} = request.body
     //console.log('esto es un post ' + JSON.stringify(jtxt) + ' ' + origen + ' ' + municipio + ' '+ necesidad);
-    let cadena = 'INSERT INTO fase1 (twitjson,twitstring,origen,municipio,necesidad) VALUES (\'' +  jtxt  + '\', \'' + jtxt + '\', \'' + origen + '\', \'' + municipio + '\', \'' + necesidad + '\')'  ;
-    //console.log(cadena);
+    let cadena = 'INSERT INTO fase1 (twitjson,origen,municipio,necesidad) VALUES (\'' +  jtxt  + '\', \'' + origen + '\', \'' + municipio + '\', \'' + necesidad + '\')'  ;
+    console.log(cadena);
   pool.query(cadena, (error, results) => {
     if (error) {
       //throw error
