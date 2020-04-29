@@ -67,6 +67,7 @@ const getNecesidad = (request, response) => {
 
 const createAlerts = (request, response) => {
       var jtxt = JSON.stringify(request.body);
+      console.log(jtxt);
       var origen = request.body.source;
       var municipio =  request.body.locationId;
       var necesidad =  request.body.necesidadId;
@@ -99,12 +100,26 @@ const getAlertsDetail = (request, response) => {
 }
 
 
+const getAlertsDetailReport = (request, response) => {
+  const id = request.query.id;
+  pool.query('select twitjson from fase1 where municipio = ' + id + '  ', (error, results) => {
+    if (error) {
+      //throw error
+      response.status(500).send(`{'msg':'error'}`);
+    }
+    //console.log('se han enviado todos los mensajes');
+    response.status(200).json(results.rows)
+  })
+}
+
+
 module.exports = {
   getAlertsMaster,
   getDepartamentos,
   getMunicipios,
   getNecesidad,
   getAlertsDetail,
-  createAlerts
+  createAlerts,
+  getAlertsDetailReport
 }
 
