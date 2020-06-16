@@ -34,15 +34,15 @@ const CoordenadasAGeopost = (request, response) => {
    var geocoordenada = '';
 
    //PRIMER CALCULO, DETERMINAR POSICION CARDINAL DEPENDIENDO DE LOS SIGNOS
-    if (latitud < 0)
+    if (Number(latitud) < 0)
         NS = 'S';
     else
         NS = 'N';
 
-    if (longitud < 0)
-        EO = 'E';
-    else
+    if (Number(longitud) < 0)
         EO = 'O';
+    else
+        EO = 'E';
 
 
    var arregloLatitud = latitud.replace('-','').split('.');
@@ -80,9 +80,9 @@ const GeopostACoordenadas = (request, response) => {
     else if (geocodigo[0] === 'S')
         NS = '-';
 
-    if (geocodigo[1] === 'O')
+    if (geocodigo[1] === 'E')
         EO = '';
-    else if (geocodigo[1] === 'E')
+    else if (geocodigo[1] === 'O')
         EO = '-';
     //console.log(NS,EO);
 
