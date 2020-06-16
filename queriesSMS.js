@@ -28,7 +28,7 @@ const getSMS = (request, response) => {
       response.status(500).send('{"msg":"' + error + '"}');
     }
     console.log('#SOSAGUA GET Method cubo1');
-    response.status(200).json(results.rows)
+    response.status(200).json(results.rows);
   })
 }
 
