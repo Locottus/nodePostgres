@@ -62,13 +62,13 @@ const CoordenadasAGeopost = (request, response) => {
    geocoordenada = NS + EO + hex1 + '-' + hex2;
 
    console.log(geocoordenada);
-   response.status(200).json('{"Geocodigo" : "' + geocoordenada + '"}');
+   response.status(200).json(JSON.parse('{"Geocodigo" : "' + geocoordenada + '"}'));
 }
 
 
 const GeopostACoordenadas = (request, response) => {
     
-    const geocodigo = request.query.Geocodigo;
+    const geocodigo = request.query.Geocodigo.toString().toUpperCase();
     console.log(geocodigo);
     var NS ;
     var EO ;
@@ -99,7 +99,7 @@ const GeopostACoordenadas = (request, response) => {
     console.log(mantisa);  
     latitud = lat0 + '.' + mantisa.substring(0,5);
     longitud = lon0 + '.' + mantisa.substring(5,11);
-    response.status(200).json('{"Latitud" : "' + latitud + '", "' + longitud + '" : "xxx"}');
+    response.status(200).json(JSON.parse('{"Latitud" : "' + latitud + '", "Longitud" : "'+longitud+'"}'));
  }
  
 
