@@ -102,7 +102,7 @@ const getAlertsDetail = (request, response) => {
 
 const getAlertsDetailReport = (request, response) => {
   const id = request.query.id;
-  pool.query('select twitjson from fase1 where municipio = ' + id + '  ', (error, results) => {
+  pool.query('select textjson from fase1 where municipio = ' + id + '  ', (error, results) => {
     if (error) {
       //throw error
       response.status(500).send(`{'msg':'error'}`);
