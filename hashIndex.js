@@ -11,6 +11,7 @@ const upload = multer({
 //   }
 // })
 
+var filePath = '/incyt/api/HashFiles/uploads';
 
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -19,7 +20,7 @@ const port = 3002
 const f = require('./uploadFiles')
 
 
-app.use('/incyt/api/HashFiles/uploads',express.static(pathImages));
+app.use(filePath,express.static(pathImages));
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
@@ -62,6 +63,11 @@ app.get('/incyt/api/HashFiles', (request, response) => {
 
 app.get('/incyt/api/HashFiles/getFile', f.getFile)
 app.post('/incyt/api/HashFiles/postFile', upload.single('file'), f.postFile)
+
+
+
+//app.get('/incyt/api/HashFiles/getStaticFile', f.getStaticFile)
+app.post('/incyt/api/HashFiles/postStaticFile', upload.single('file'), f.postStaticFile)
 
 
 app.listen(port, () => {
