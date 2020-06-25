@@ -1,26 +1,26 @@
 const Pool = require('pg').Pool
 
 //PROD
-// const pool = new Pool({
-//   user: 'postgres',
-//   host: '172.17.250.12',
-//   database: 'hashFiles',
-//   password: 'postgres2020!Incyt',
-//   port: 5432,
-// })
-
-//DEV
 const pool = new Pool({
   user: 'postgres',
-  host: 'localhost',
+  host: '172.17.250.12',
   database: 'hashFiles',
-  password: 'Guatemala1',
+  password: 'postgres2020!Incyt',
   port: 5432,
 })
 
+//DEV
+// const pool = new Pool({
+//   user: 'postgres',
+//   host: 'localhost',
+//   database: 'hashFiles',
+//   password: 'Guatemala1',
+//   port: 5432,
+// })
 
-var stamm = 'http://localhost:3002';//DEV
-//var stamm = 'https://arcgis-web.url.edu.gt/';//PROD
+
+//var stamm = 'http://localhost:3002';//DEV
+var stamm = 'https://arcgis-web.url.edu.gt';//PROD
 
 var filePath = '/incyt/api/HashFiles/uploads/';
   
