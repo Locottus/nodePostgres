@@ -17,12 +17,15 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/incyt/api/sms', (request, response) => {
-  response.json({ info: 'Node.js, Express, nginx  and Postgres API #SMS ' })
+app.get('/incyt/api/clima', (request, response) => {
+  response.json({ info: 'Node.js, Express, nginx  and Postgres API #CLIMA ' })
 })
 
-app.get('/incyt/api/sms/getSMS', db.getSMS)
-app.post('/incyt/api/sms/postSMS', db.postSMS)
+app.get('/incyt/api/clima/getestaciones', db.getestaciones)
+app.get('/incyt/api/clima/getanios', db.getyears)
+app.get('/incyt/api/clima/getmeses', db.getmeses)
+//app.get('/incyt/api/clima/getmes', db.getSMS)
+//app.post('/incyt/api/clima/postSMS', db.postSMS)
 
 
 
