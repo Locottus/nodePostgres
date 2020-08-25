@@ -11,49 +11,101 @@ const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
-  database: 'sosagua',
+  database: 'clima',
   password: 'Guatemala1',
   port: 5432,
 })
 
 
+const meses = [
+  {
+      "mes": "Enero",
+      "id": "1",
+  },
+  {
+      "mes": "Febrero",
+      "id": "2",
+  },
+  {
+      "mes": "Marzo",
+      "id": "3",
+  },
+  {
+      "mes": "Abril",
+      "id": "4",
+  },
+  {
+      "mes": "Mayo",
+      "id": "5",
+  },
+  {
+      "mes": "Junio",
+      "id": "6",
+  },
+  {
+      "mes": "Julio",
+      "id": "7",
+  },
+  {
+      "mes": "Agosto",
+      "id": "8",
+  },
+  {
+      "mes": "Septiembre",
+      "id": "9",
+  },
+  {
+      "mes": "Octubre",
+      "id": "10",
+  },
+  {
+      "mes": "Noviembre",
+      "id": "11",
+  },
+  {
+      "mes": "Diciembre",
+      "id": "12",
+  },
+];
 
-const getSMS = (request, response) => {
-   const fecha = request.query.fecha;//fecha en formato YYYY-MM-DD
-   var q = 'select sms from sms where fecha between \''+ fecha  +' 00:00:00\'' +
-   ' and \''+ fecha +' 23:59:00\' ' + 
-   ' order by fecha asc ';
+
+
+const getestaciones = (request, response) => {
+   //const fecha = request.query.fecha;//fecha en formato YYYY-MM-DD
+  var q = 'select distinct estacion,longitud,latitud,zona_vida from historico_estaciones order by estacion asc'  ;
   pool.query(q, (error, results) => {
     if (error) {
-      //throw error
       response.status(500).send('{"msg":"' + error + '"}');
     }
-    console.log('#SOSAGUA GET Method cubo1');
+    console.log('#CLIMA GET Method ALL STATIONS');
     response.status(200).json(results.rows);
   })
 }
 
+const getmeses = (request, response) => {
+  console.log("ENTRANDO A GET MESES");
+  response.status(200).json(meses);
+}
 
-const postSMS = (request, response) => {
-    var jtxt = JSON.stringify(request.body);
-    console.log(jtxt);
-    //var origen = request.body.source;
-  
-  let cadena = 'INSERT INTO sms (sms) VALUES (\'' +  jtxt  + '\')'  ;
-  console.log(cadena);
-pool.query(cadena, (error, results) => {
-  if (error) {
-    response.status(500).send('{"msg":"' + error + '"}');
+
+const getyears = (request, response) => {
+ var q = 'select distinct year from historico_estaciones order by year desc'  ;
+ pool.query(q, (error, results) => {
+   if (error) {
+     response.status(500).send('{"msg":"' + error + '"}');
+   }
+   console.log('#CLIMA GET Method ALL years');
+   response.status(200).json(results.rows);
+ })
 }
-  //response.status(201).send(`User added with ID: ${results.body}`);
-  response.status(201).send(`{'msg':'OK'}`);
-})
-}
+
+
 
 
 module.exports = {
-    getSMS,
-    postSMS
+  getestaciones,
+  getyears,
+  getmeses
   }
   
   
