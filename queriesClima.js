@@ -100,12 +100,29 @@ const getyears = (request, response) => {
 }
 
 
+const getdata = (request, response) => {
+  const yyyy1 = request.query.yyyy1;
+  const yyyy2 = request.query.yyyy2;
+  //const mm1 = request.query.mm1;
+  //const mm2 = request.query.mm2;
+  const estacion = request.query.estacion;
+  var q = 'select * from historico_estaciones where estacion = \'' + estacion + '\' and year between ' + yyyy1 + ' and ' +yyyy2  ;
+  console.log(q);
+  pool.query(q, (error, results) => {
+    if (error) {
+      response.status(500).send('{"msg":"' + error + '"}');
+    }
+    console.log('#CLIMA GET data requested');
+    response.status(200).json(results.rows);
+  })
+ }
 
 
 module.exports = {
   getestaciones,
   getyears,
-  getmeses
+  getmeses,
+  getdata
   }
   
   

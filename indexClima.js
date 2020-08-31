@@ -24,6 +24,8 @@ app.get('/incyt/api/clima', (request, response) => {
 app.get('/incyt/api/clima/getestaciones', db.getestaciones)
 app.get('/incyt/api/clima/getanios', db.getyears)
 app.get('/incyt/api/clima/getmeses', db.getmeses)
+app.get('/incyt/api/clima/getdata', db.getdata)
+
 //app.get('/incyt/api/clima/getmes', db.getSMS)
 //app.post('/incyt/api/clima/postSMS', db.postSMS)
 
