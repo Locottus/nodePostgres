@@ -117,12 +117,34 @@ const getdata = (request, response) => {
   })
  }
 
+ const getdataAVG = (request, response) => {
+  const yyyy1 = request.query.yyyy1;
+  const yyyy2 = request.query.yyyy2;
+  //const mm1 = request.query.mm1;
+  //const mm2 = request.query.mm2;
+  const estacion = request.query.estacion;
+  var q = 'select estacion,year,mes,round(avg(lluvia),1) as "lluvia",round(avg(tmax),1) as "tmax",round(avg(tmin),1) as "tmin",round(avg(etp),1) as "etp",round(avg(bc),1) as "bc" ' +
+  ' from historico_estaciones where estacion = \'' 
+  + estacion + '\' and year between ' + yyyy1 + ' and ' + yyyy2  +
+  ' group by estacion, year, mes order by year,mes '  ;
+  console.log(q);
+  pool.query(q, (error, results) => {
+    if (error) {
+      response.status(500).send('{"msg":"' + error + '"}');
+    }
+    console.log('#CLIMA GET data AVG requested');
+    response.status(200).json(results.rows);
+  })
+ }
+
+
 
 module.exports = {
   getestaciones,
   getyears,
   getmeses,
-  getdata
+  getdata,
+  getdataAVG
   }
   
   
