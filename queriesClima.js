@@ -106,7 +106,10 @@ const getdata = (request, response) => {
   //const mm1 = request.query.mm1;
   //const mm2 = request.query.mm2;
   const estacion = request.query.estacion;
-  var q = 'select * from historico_estaciones where estacion = \'' + estacion + '\' and year between ' + yyyy1 + ' and ' +yyyy2  ;
+  var q = 'select * from historico_estaciones where estacion = \'' + estacion +
+   '\' and year between ' + yyyy1 + ' and ' +yyyy2  +
+   ' and lluvia >=0 and tmax >=0 and tmin >=0 and etp >=0 and bc >= 0 ' 
+   ;
   console.log(q);
   pool.query(q, (error, results) => {
     if (error) {
@@ -128,6 +131,7 @@ const getdata = (request, response) => {
   'round( (avg(tmax) + avg(tmin))  / 2,1) as "tPromedio" ' +
   ' from historico_estaciones where estacion = \'' +
   estacion + '\' and year between ' + yyyy1 + ' and ' + yyyy2  +
+  ' and lluvia >=0 and tmax >=0 and tmin >=0 and etp >=0 and bc >= 0 ' +
   ' group by estacion, year, mes order by year,mes '  ;
   console.log(q);
   pool.query(q, (error, results) => {

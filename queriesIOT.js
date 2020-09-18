@@ -97,13 +97,21 @@ const E1MS1 = (request, response) => {
 }
 
 
+const test = (request, response) => {
+  console.log(request.body);
+  
+  response.status(201).send({ 'msg': 'OK', 'error': 'err' });
+}
+
+
 module.exports = {
   getISE1_INFRA,
   getISE2_INFRA,
   getE1MS1,
   ISE1_INFRA,
   ISE2_INFRA,
-  E1MS1
+  E1MS1,
+  test
 }
 
 
