@@ -183,13 +183,25 @@ const getdata = (request, response) => {
   //const mm2 = request.query.mm2;
   const estacion = request.query.estacion;
   const estacion2 = request.query.estacion2;
-  var q = 'select estacion,year,mes,round(avg(lluvia),1) as "lluvia",round(avg(tmax),1) as "tmax", ' +
-  'round(avg(tmin),1) as "tmin",round(avg(etp),1) as "etp",round(avg(bc),1) as "bc" , ' +
-  'round( (avg(tmax) + avg(tmin))  / 2,1) as "tPromedio" ' +
-  ' from historico_estaciones where estacion in ( \'' +
-  estacion + '\', \'' + estacion2 + '\')  and year between ' + yyyy1 + ' and ' + yyyy2  +
-  ' and lluvia >= 0 and tmax >= 0 and tmin >= 0 and etp >= 0 and bc >= 0 ' +
-  ' group by estacion, year, mes order by year,mes '  ;
+  var q = `
+  select H1.estacion "estacion1", H1.year,H1.mes,round(avg(H1.lluvia),1) as "lluvia1",round(avg(H1.tmax),1) as "tmax1", 
+  round(avg(H1.tmin),1) as "tmin1",round(avg(H1.etp),1) as "etp1",round(avg(H1.bc),1) as "bc1" , 
+  round( (avg(H1.tmax) + avg(H1.tmin))  / 2,1) as "tPromedio1",
+  
+  H2.estacion "estacion2", round(avg(H2.lluvia),1) as "lluvia2", round(avg(H2.tmax),1) as "tmax2", 
+  round(avg(H1.tmin),1) as "tmin2", round(avg(H1.etp),1) as "etp2", round(avg(H1.bc),1) as "bc2" , 
+  round( (avg(H1.tmax) + avg(H1.tmin))  / 2,1) as "tPromedio2" 
+  
+   from historico_estaciones H1, historico_estaciones H2 
+   where H1.estacion  = '${estacion}'  and H2.estacion = '${estacion2}'
+   and H1.year between ${yyyy1} and ${yyyy2}
+   and H1.lluvia >= 0 and H1.tmax >= 0 and H1.tmin >= 0 and H1.etp >= 0 and H1.bc >= 0 
+   and h2.lluvia >=0 and h2.tmax >=0 and h2.tmin >=0 and h2.etp >=0 and h2.bc >= 0
+	 and h1.year = h2.year
+	 and h1.mes = h2.mes
+	 and h1.dia = h1.dia
+   group by H1.estacion, H2.estacion , H1.year, H1.mes order by H1.year, H1.mes 
+  `;
   console.log(q);
   pool.query(q, (error, results) => {
     if (error) {
