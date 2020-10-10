@@ -25,8 +25,9 @@ app.get('/incyt/api/clima/getestaciones', db.getestaciones)
 app.get('/incyt/api/clima/getanios', db.getyears)
 app.get('/incyt/api/clima/getmeses', db.getmeses)
 app.get('/incyt/api/clima/getdata', db.getdata)
+app.get('/incyt/api/clima/getdata2', db.getdata2)
 app.get('/incyt/api/clima/getdataAVG', db.getdataAVG)
-
+app.get('/incyt/api/clima/getdataAVG', db.getdataAVG2)
 
 app.listen(port, () => {
   console.log(`App CLIMA running on port ${port}.`)
