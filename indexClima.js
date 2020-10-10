@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const db = require('./queriesClima');
-const port = 3004;
+const port = 3005;
 
 app.use(bodyParser.json())
 app.use(
