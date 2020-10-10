@@ -128,7 +128,7 @@ const getdata = (request, response) => {
   const estacion = request.query.estacion;
   const estacion2 = request.query.estacion2;
   var q = `
-  select h1.estacion  "estacion1", h1.year "year", h1.mes "mes", h1.dia "dia", 
+  select h1.estacion  "estacion1", h1.year "year", h1.mes "mes", h1.dia "dia", h2.estacion "estacion2",
     h1.lluvia "lluvia1",h1.tmax "tmax1", h1.tmin "tmin1", h1.etp "etp1", h1.bc "bc1", h1.zona_vida "zona_vida1",
     h2.lluvia "lluvia2",h2.tmax "tmax2", h2.tmin "tmin2", h2.etp "etp2", h2.bc "bc2", h2.zona_vida "zona_vida2"
     from historico_estaciones h1, historico_estaciones h2
