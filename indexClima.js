@@ -29,7 +29,14 @@ app.get('/incyt/api/clima/getdata2', db.getdata2)
 app.get('/incyt/api/clima/getdataAVG', db.getdataAVG)
 app.get('/incyt/api/clima/getdataAVG2', db.getdataAVG2)
 
+app.get('/incyt/api/clima/proyeccionAbsolutaAgua', db.proyeccionAbsolutaAgua)
+app.get('/incyt/api/clima/proyeccionPorcentualAgua', db.proyeccionPorcentualAgua)
+app.get('/incyt/api/clima/proyeccionAbsolutaTemperatura', db.proyeccionAbsolutaTemperatura)
+app.get('/incyt/api/clima/proyeccionPorcentualTemperatura', db.proyeccionPorcentualTemperatura)
+
 app.listen(port, () => {
   console.log(`App CLIMA running on port ${port}.`)
 })
 
+
+  
