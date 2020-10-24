@@ -213,6 +213,56 @@ const getdata = (request, response) => {
  }
 
 
+
+ const proyeccionAbsolutaAgua = (request, response) => {
+  const estacion = request.query.estacion;
+  var q = `  select * from proyeccion_absoluta_lluvia where estacion = '${estacion}' order by estacion, anio, mes  `;
+  
+  pool.query(q, (error, results) => {
+    if (error) {
+      response.status(500).send('{"msg":"' + error + '"}');
+    }
+    response.status(200).json(results.rows);
+  })
+ }
+
+
+ const proyeccionPorcentualAgua = (request, response) => {
+  const estacion = request.query.estacion;
+  var q = `select * from proyeccion_Porcentual_lluvia  where estacion = '${estacion}'  order by estacion, anio, mes ` ;
+  pool.query(q, (error, results) => {
+    if (error) {
+      response.status(500).send('{"msg":"' + error + '"}');
+    }
+    response.status(200).json(results.rows);
+  })
+ }
+
+
+ const proyeccionAbsolutaTemperatura = (request, response) => {
+  const estacion = request.query.estacion;
+  var q = `select * from proyeccion_absoluta_temperatura  where estacion = '${estacion}' order by estacion, anio, mes `;
+  
+  pool.query(q, (error, results) => {
+    if (error) {
+      response.status(500).send('{"msg":"' + error + '"}');
+    }
+    response.status(200).json(results.rows);
+  })
+ }
+
+
+ const proyeccionPorcentualTemperatura = (request, response) => {
+  const estacion = request.query.estacion;
+  var q = `select * from proyeccion_Porcentual_temperatura  where estacion = '${estacion}' order by estacion, anio, mes ` ;
+  pool.query(q, (error, results) => {
+    if (error) {
+      response.status(500).send('{"msg":"' + error + '"}');
+    }
+    response.status(200).json(results.rows);
+  })
+ }
+
 module.exports = {
   getestaciones,
   getyears,
@@ -220,7 +270,11 @@ module.exports = {
   getdata,
   getdata2,
   getdataAVG,
-  getdataAVG2
+  getdataAVG2,
+  proyeccionAbsolutaAgua,
+  proyeccionPorcentualAgua,
+  proyeccionAbsolutaTemperatura,
+  proyeccionPorcentualTemperatura
   }
   
   
