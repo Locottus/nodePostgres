@@ -18,6 +18,7 @@ app.use(function(req, res, next) {
 });
 
 app.get('/incyt/api/clima', (request, response) => {
+  console.log("someging is going on")
   response.json({ info: 'Node.js, Express, nginx  and Postgres API #CLIMA ' })
 })
 
@@ -26,8 +27,10 @@ app.get('/incyt/api/clima/getanios', db.getyears)
 app.get('/incyt/api/clima/getmeses', db.getmeses)
 app.get('/incyt/api/clima/getdata', db.getdata)
 app.get('/incyt/api/clima/getdata2', db.getdata2)
+app.get('/incyt/api/clima/getdata3', db.getdata3)
 app.get('/incyt/api/clima/getdataAVG', db.getdataAVG)
 app.get('/incyt/api/clima/getdataAVG2', db.getdataAVG2)
+app.get('/incyt/api/clima/getdataAVG3', db.getdataAVG3)
 
 app.get('/incyt/api/clima/proyeccionAbsolutaAgua', db.proyeccionAbsolutaAgua)
 app.get('/incyt/api/clima/proyeccionPorcentualAgua', db.proyeccionPorcentualAgua)

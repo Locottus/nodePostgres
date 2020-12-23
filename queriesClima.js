@@ -153,6 +153,42 @@ const getdata = (request, response) => {
  }
 
 
+ const getdata3 = (request, response) => {
+  const yyyy1 = request.query.yyyy1;
+  const yyyy2 = request.query.yyyy2;
+  //const mm1 = request.query.mm1;
+  //const mm2 = request.query.mm2;
+  const estacion = request.query.estacion;
+  const estacion2 = request.query.estacion2;
+  var q = `
+  select h1.estacion  "estacion", h1.year "year", h1.mes "mes", h1.dia "dia", 
+  h1.lluvia "lluvia",h1.tmax "tmax", h1.tmin "tmin", h1.etp "etp", h1.bc "bc", h1.zona_vida "zona_vida"
+  from historico_estaciones h1
+  where h1.estacion = '${estacion}'
+  AND h1.year between ${yyyy1} and ${yyyy2}
+  and h1.lluvia >=-10 and h1.tmax >=-10 and h1.tmin >=-10 and h1.etp >=-10 and h1.bc >= -10
+  
+  union
+
+  select h1.estacion  "estacion", h1.year "year", h1.mes "mes", h1.dia "dia", 
+  h1.lluvia "lluvia",h1.tmax "tmax", h1.tmin "tmin", h1.etp "etp", h1.bc "bc", h1.zona_vida "zona_vida"
+  from historico_estaciones h1
+  where h1.estacion = '${estacion2}'
+  AND h1.year between ${yyyy1} and ${yyyy2}
+  and h1.lluvia >=-10 and h1.tmax >=-10 and h1.tmin >=-10 and h1.etp >=-10 and h1.bc >= -10
+  
+  `
+  console.log(q);
+  pool.query(q, (error, results) => {
+    if (error) {
+      response.status(500).send('{"msg":"' + error + '"}');
+    }
+    console.log('#CLIMA GET data requested');
+    response.status(200).json(results.rows);
+  })
+ }
+
+
  const getdataAVG = (request, response) => {
   const yyyy1 = request.query.yyyy1;
   const yyyy2 = request.query.yyyy2;
@@ -213,6 +249,30 @@ const getdata = (request, response) => {
  }
 
 
+ const getdataAVG3 = (request, response) => {
+  const yyyy1 = request.query.yyyy1;
+  const yyyy2 = request.query.yyyy2;
+  //const mm1 = request.query.mm1;
+  //const mm2 = request.query.mm2;
+  const estacion = request.query.estacion;
+  const estacion2 = request.query.estacion2;
+  var q = `
+  select * 
+  from promedios_estaciones 
+  where estacion in ('${estacion}','${estacion2}') 
+  and year between ${yyyy1} and ${yyyy2}
+  order by year,mes
+  `;
+  console.log(q);
+  pool.query(q, (error, results) => {
+    if (error) {
+      response.status(500).send('{"msg":"' + error + '"}');
+    }
+    console.log('#CLIMA GET data AVG requested');
+    response.status(200).json(results.rows);
+  })
+ }
+
 
  const proyeccionAbsolutaAgua = (request, response) => {
   const estacion = request.query.estacion;
@@ -269,12 +329,25 @@ module.exports = {
   getmeses,
   getdata,
   getdata2,
+  getdata3,
   getdataAVG,
   getdataAVG2,
+  getdataAVG3,
   proyeccionAbsolutaAgua,
   proyeccionPorcentualAgua,
   proyeccionAbsolutaTemperatura,
   proyeccionPorcentualTemperatura
   }
   
-  
+  /*
+  create view promedios_estaciones as	
+select H1.estacion "estacion", H1.year,H1.mes,round(avg(H1.lluvia),1) as "lluvia",round(avg(H1.tmax),1) as "tmax", 
+  round(avg(H1.tmin),1) as "tmin",round(avg(H1.etp),1) as "etp",round(avg(H1.bc),1) as "bc" , 
+  round( (avg(H1.tmax) + avg(H1.tmin))  / 2,1) as "tPromedio"
+   from historico_estaciones H1
+   --where H1.estacion  = 'INSIVUMEH' 
+   --where H1.year between 1900 and 3000
+   where H1.lluvia >= -10 and H1.tmax >= -10 and H1.tmin >= -10 and H1.etp >= -10 and H1.bc >= -10 
+   group by H1.estacion , H1.year, H1.mes order by H1.year, H1.mes 
+
+  */
