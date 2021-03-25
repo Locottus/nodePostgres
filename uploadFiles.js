@@ -110,9 +110,32 @@ const postStaticFile = (request, response) => {
 }
 
 
+
+
+const getVideosVolcanes = (request, response) => {
+  //const minutos = request.query.minutos;
+  //select * from e1ms1 where fecha_recepcion > (current_timestamp - (100000 * interval '1 minute'))
+  pool.query('select * from videos_volcanes order by fecha desc ', (error, results) => {
+    if (error) {
+      throw error
+    }
+    //console.log('se han enviado todos los mensajes');
+    response.status(200).json(results.rows)
+  })
+}
+
+
 module.exports = {
   getFile,
   postFile,
   //getStaticFile,
-  postStaticFile
+  postStaticFile,
+  getVideosVolcanes
 }
+
+/*
+create table videos_volcanes (
+ fecha date not null,
+ video text not null
+)
+*/ 

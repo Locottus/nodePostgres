@@ -351,3 +351,4 @@ select H1.estacion "estacion", H1.year,H1.mes,round(avg(H1.lluvia),1) as "lluvia
    group by H1.estacion , H1.year, H1.mes order by H1.year, H1.mes 
 
   */
+  

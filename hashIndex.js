@@ -61,6 +61,9 @@ app.get('/incyt/api/HashFiles', (request, response) => {
 })
 
 
+app.get('/incyt/api/HashFiles/getVideosVolcanes', f.getVideosVolcanes)
+
+
 app.get('/incyt/api/HashFiles/getFile', f.getFile)
 app.post('/incyt/api/HashFiles/postFile', upload.single('file'), f.postFile)
 
